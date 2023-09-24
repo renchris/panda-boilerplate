@@ -8,7 +8,9 @@ transform(props, { map }) {
   return {
     gridColumn: colSpan != null ? map(colSpan, spanFn) : void 0,
     gridRow: rowSpan != null ? map(rowSpan, spanFn) : void 0,
+    gridColumnStart: colStart,
     gridColumnEnd: colEnd,
+    gridRowStart: rowStart,
     gridRowEnd: rowEnd,
     ...rest
   };
@@ -17,3 +19,4 @@ transform(props, { map }) {
 export const getGridItemStyle = (styles = {}) => gridItemConfig.transform(styles, { map: mapObject })
 
 export const gridItem = (styles) => css(getGridItemStyle(styles))
+gridItem.raw = getGridItemStyle

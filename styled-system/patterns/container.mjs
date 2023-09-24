@@ -15,3 +15,4 @@ transform(props) {
 export const getContainerStyle = (styles = {}) => containerConfig.transform(styles, { map: mapObject })
 
 export const container = (styles) => css(getContainerStyle(styles))
+container.raw = getContainerStyle

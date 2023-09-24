@@ -1,7 +1,7 @@
 /* eslint-disable */
-import type { ConditionalValue, Conditions, Nested } from './conditions'
-import type { PropertiesFallback } from './csstype'
-import type { SystemProperties, CssVarProperties } from './style-props'
+import type {  ConditionalValue, Conditions, Nested  } from './conditions';
+import type {  PropertiesFallback  } from './csstype';
+import type {  SystemProperties, CssVarProperties  } from './style-props';
 
 type String = string & {}
 type Number = number & {}
@@ -51,25 +51,27 @@ export type CompositionStyleObject<Property extends string> = Nested<{
 /* -----------------------------------------------------------------------------
  * Jsx style props
  * -----------------------------------------------------------------------------*/
+type WithCss = { css?: SystemStyleObject }
+type StyleProps = SystemProperties & MinimalNested<SystemStyleObject>
 
-export type JsxStyleProps = SystemProperties &
-  MinimalNested<SystemStyleObject> & {
-    css?: SystemStyleObject
-  }
+export type JsxStyleProps = StyleProps & WithCss
 
-type Assign<T, U> = Omit<T, keyof U> & U
+export type DistributiveOmit<T, K extends keyof any> = T extends unknown ? Omit<T, K> : never
+
+export type Assign<T, U> = {
+  [K in keyof T]: K extends keyof U ? U[K] : T[K]
+} & U
 
 export type PatchedHTMLProps = {
-  htmlSize?: string | number
   htmlWidth?: string | number
   htmlHeight?: string | number
   htmlTranslate?: 'yes' | 'no' | undefined
   htmlContent?: string
 }
 
-export type OmittedHTMLProps = 'color' | 'translate' | 'transition' | 'width' | 'height' | 'size' | 'content'
+export type OmittedHTMLProps = 'color' | 'translate' | 'transition' | 'width' | 'height' | 'content'
 
-type WithHTMLProps<T> = Omit<T, OmittedHTMLProps> & PatchedHTMLProps
+type WithHTMLProps<T> = DistributiveOmit<T, OmittedHTMLProps> & PatchedHTMLProps
 
 export type JsxHTMLProps<T extends Record<string, any>, P extends Record<string, any> = {}> = Assign<
   WithHTMLProps<T>,

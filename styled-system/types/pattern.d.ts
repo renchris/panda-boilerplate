@@ -1,6 +1,6 @@
 /* eslint-disable */
-import type { CssProperty, SystemStyleObject } from './system-types'
-import type { TokenCategory } from '../tokens'
+import type {  CssProperty, SystemStyleObject  } from './system-types';
+import type {  TokenCategory  } from '../tokens/index';
 
 type Primitive = string | number | boolean | null | undefined
 type LiteralUnion<T, K extends Primitive = string> = T | (K & Record<never, never>)
@@ -15,7 +15,7 @@ export type PatternHelpers = {
   map: (value: any, fn: (value: string) => string | undefined) => any
 }
 
-type PatternProperties = Record<string, PatternProperty>
+export type PatternProperties = Record<string, PatternProperty>
 
 type Props<T> = Record<LiteralUnion<keyof T>, any>
 
@@ -32,7 +32,7 @@ export type PatternConfig<T extends PatternProperties = PatternProperties> = {
   /**
    * The properties of the pattern.
    */
-  properties: T
+  properties?: T
   /**
    * The css object this pattern will generate.
    */
@@ -40,7 +40,14 @@ export type PatternConfig<T extends PatternProperties = PatternProperties> = {
   /**
    * The jsx element name this pattern will generate.
    */
-  jsx?: string
+  jsxName?: string
+  /**
+   * The jsx elements to track for this pattern. Can be string or Regexp.
+   *
+   * @default capitalize(pattern.name)
+   * @example ['Button', 'Link', /Button$/]
+   */
+  jsx?: Array<string | RegExp>
   /**
    * Whether to only generate types for the specified properties.
    * This will disallow css properties

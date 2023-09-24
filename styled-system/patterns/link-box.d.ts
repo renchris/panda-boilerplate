@@ -1,15 +1,21 @@
 /* eslint-disable */
-import type { SystemStyleObject, ConditionalValue } from '../types'
-import type { PropertyValue } from '../types/prop-type'
-import type { Properties } from '../types/csstype'
-import type { Tokens } from '../tokens'
+import type { SystemStyleObject, ConditionalValue } from '../types/index';
+import type { Properties } from '../types/csstype';
+import type { PropertyValue } from '../types/prop-type';
+import type { DistributiveOmit } from '../types/system-types';
+import type { Tokens } from '../tokens/index';
 
 export type LinkBoxProperties = {
    
 }
 
 
-type LinkBoxOptions = LinkBoxProperties & Omit<SystemStyleObject, keyof LinkBoxProperties >
+type LinkBoxStyles = LinkBoxProperties & DistributiveOmit<SystemStyleObject, keyof LinkBoxProperties >
+
+interface LinkBoxPatternFn {
+  (styles?: LinkBoxStyles): string
+  raw: (styles?: LinkBoxStyles) => SystemStyleObject
+}
 
 
-export declare function linkBox(options?: LinkBoxOptions): string
+export declare const linkBox: LinkBoxPatternFn;

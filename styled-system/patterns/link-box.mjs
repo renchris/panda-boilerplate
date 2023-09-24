@@ -16,3 +16,4 @@ transform(props) {
 export const getLinkBoxStyle = (styles = {}) => linkBoxConfig.transform(styles, { map: mapObject })
 
 export const linkBox = (styles) => css(getLinkBoxStyle(styles))
+linkBox.raw = getLinkBoxStyle

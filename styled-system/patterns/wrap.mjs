@@ -19,3 +19,4 @@ transform(props) {
 export const getWrapStyle = (styles = {}) => wrapConfig.transform(styles, { map: mapObject })
 
 export const wrap = (styles) => css(getWrapStyle(styles))
+wrap.raw = getWrapStyle

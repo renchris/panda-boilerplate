@@ -20,3 +20,4 @@ transform(props) {
 export const getFlexStyle = (styles = {}) => flexConfig.transform(styles, { map: mapObject })
 
 export const flex = (styles) => css(getFlexStyle(styles))
+flex.raw = getFlexStyle
